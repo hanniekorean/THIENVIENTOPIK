@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiền Đường Học Tiếng Hàn cùng Cô Hannie</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Merriweather & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Playfair+Display:ital,wght@0,600;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        zenBg: '#1f1610',
+                        zenCard: '#2d2017',
+                        zenBorder: '#785226',
+                        zenGold: '#d4af37',
+                        zenGoldLight: '#f3e5ab',
+                        zenWood: '#42281d',
+                        zenRed: '#8b2626',
+                        zenText: '#e8ded1',
+                        zenMuted: '#a89887'
+                    },
+                    fontFamily: {
+                        serif: ['Merriweather', 'Times New Roman', 'serif'],
+                        title: ['Playfair Display', 'Merriweather', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #1f1610;
+            color: #e8ded1;
+            font-family: 'Merriweather', 'Times New Roman', serif;
+            background-image: radial-gradient(circle at center, #2e1d14 0%, #150d09 100%);
+            min-height: 100vh;
+        }
+
+        .zen-box {
+            border: 2px solid #785226;
+            box-shadow: 0 0 20px rgba(0,0,0,0.7), inset 0 0 15px rgba(212, 175, 55, 0.05);
+            background: rgba(45, 32, 23, 0.92);
+            backdrop-filter: blur(4px);
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #fff3a8 0%, #d4af37 50%, #aa7c11 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-zen-primary {
+            background: linear-gradient(180deg, #785226 0%, #42281d 100%);
+            border: 1px solid #d4af37;
+            color: #f3e5ab;
+            transition: all 0.3s ease;
+        }
+        .btn-zen-primary:hover:not(:disabled) {
+            background: linear-gradient(180deg, #9c6c34 0%, #593729 100%);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+            transform: translateY(-1px);
+        }
+        .btn-zen-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: #555;
+        }
+
+        #incenseCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .ui-container {
+            position: relative;
+            z-index: 10;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1f1610;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #785226;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4af37;
+        }
+    </style>
+</head>
+<body class="relative flex flex-col justify-between min-h-screen select-none overflow-x-hidden">
+
+    <!-- Canvas Khói Trầm 3D Mờ Ảo -->
+    <canvas id="incenseCanvas"></canvas>
+
+    <!-- Header / Trang Chủ Button Cố Định -->
+    <header class="ui-container w-full p-3 md:p-4 flex justify-between items-center border-b border-zenBorder/40 bg-zenBg/80 backdrop-filter blur-md sticky top-0 z-50">
+        <button id="btnHome" onclick="goHome()" class="flex items-center gap-2 px-3.5 py-1.5 md:px-4 md:py-2 rounded-lg border border-zenGold/40 bg-zenWood/80 text-zenGoldLight hover:bg-zenGold hover:text-zenBg transition font-title text-xs md:text-base font-bold shadow-md">
+            <span>🏠</span> TRANG CHỦ (ĐẠI ĐIỆN)
+        </button>
+
+        <div id="userBadge" class="hidden text-xs md:text-base text-zenGoldLight font-serif italic border-b border-zenGold/30 pb-0.5">
+            Pháp danh: <span id="displayDharmaName" class="font-bold text-zenGold"></span>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="ui-container flex-grow flex items-center justify-center p-2 sm:p-4 md:p-6">
+        
+        <!-- ================= MÀN HÌNH 1: ĐẠI ĐIỆN (WELCOME & NHẬP TÊN) ================= -->
+        <section id="screenWelcome" class="w-full max-w-2xl zen-box rounded-2xl p-5 md:p-10 text-center my-auto">
+            <!-- CỜ VIỆT - HÀN BIỂU TƯỢNG GIAO THOA SANG TRỌNG -->
+            <div class="flex items-center justify-center gap-3 mb-2 text-3xl md:text-5xl">
+                <span>🇻🇳</span>
+                <span class="text-zenGold text-xl md:text-2xl font-serif">⛩️</span>
+                <span>🇰🇷</span>
+            </div>
+            
+            <h1 class="font-title text-xl md:text-4xl font-extrabold gold-gradient-text mb-2 tracking-wide">
+                THIỀN ĐƯỜNG HỌC TIẾNG HÀN
+            </h1>
+            <p class="text-zenMuted text-xs md:text-base italic mb-4 md:mb-6">
+                "Tĩnh tâm trau dồi tri thức – An nhiên chinh phục TOPIK cùng Cô Hannie"
+            </p>
+
+            <div class="w-20 md:w-24 h-0.5 bg-zenGold/40 mx-auto mb-4 md:mb-6"></div>
+
+            <div class="mb-5 text-left">
+                <label for="dharmaInput" class="block text-zenGoldLight font-serif text-xs md:text-base mb-2">
+                    Nhập Tên / Pháp Danh của bạn để bắt đầu tu luyện: <span class="text-red-400">*</span>
+                </label>
+                <input type="text" id="dharmaInput" placeholder="Ví dụ: An Lạc, Minh Trí, Hannie Student..." 
+                    class="w-full px-4 py-2.5 md:py-3 rounded-xl bg-zenBg border border-zenBorder text-zenGoldLight placeholder-zenMuted focus:outline-none focus:border-zenGold focus:ring-1 focus:ring-zenGold font-serif text-sm md:text-base transition"
+                    oninput="validateNameInput()">
+            </div>
+
+            <!-- Chọn Chế Độ Luyện Tập -->
+            <div id="hallSelection" class="space-y-3 md:space-y-4 opacity-50 pointer-events-none transition-all duration-300">
+                <p class="text-xs md:text-sm text-zenGoldLight uppercase tracking-widest font-bold">--- Chọn Sảnh Tu Luyện ---</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                    <button onclick="selectHall('vocab')" class="p-4 md:p-5 rounded-xl border border-zenBorder bg-zenWood/40 hover:bg-zenWood hover:border-zenGold transition text-left group flex flex-col justify-between">
+                        <div class="flex justify-between items-center w-full mb-1 md:mb-2">
+                            <span class="font-title font-bold text-base md:text-lg text-zenGold group-hover:text-white">📖 Sảnh Từ Vựng</span>
+                            <span class="text-xs bg-zenGold/20 text-zenGold font-bold px-2 py-0.5 rounded border border-zenGold/30">TOPIK I</span>
+                        </div>
+                        <p class="text-xs text-zenMuted">Luyện nhớ ý nghĩa từ vựng TOPIK I với hệ thống đáp án phân loại từ loại.</p>
+                    </button>
+
+                    <button onclick="selectHall('grammar')" class="p-4 md:p-5 rounded-xl border border-zenBorder bg-zenWood/40 hover:bg-zenWood hover:border-zenGold transition text-left group flex flex-col justify-between">
+                        <div class="flex justify-between items-center w-full mb-1 md:mb-2">
+                            <span class="font-title font-bold text-base md:text-lg text-zenGold group-hover:text-white">📿 Sảnh Ngữ Pháp</span>
+                            <span class="text-xs bg-zenGold/20 text-zenGold font-bold px-2 py-0.5 rounded border border-zenGold/30">TOPIK I</span>
+                        </div>
+                        <p class="text-xs text-zenMuted">Thử thách ngữ pháp chuẩn đề Hàn Quốc, đục lỗ cụm ngữ pháp và sắp xếp logic câu.</p>
+                    </button>
+                </div>
+            </div>
+
+            <button id="btnStartTrain" onclick="confirmDharmaName()" disabled class="w-full mt-5 py-3 md:py-3.5 rounded-xl btn-zen-primary text-sm md:text-base font-bold font-title tracking-wider">
+                🪷 BẮT ĐẦU TU LUYỆN
+            </button>
+        </section>
+
+
+        <!-- ================= MÀN HÌNH 2: CHỌN VÒNG (LEVEL SELECT) ================= -->
+        <section id="screenRoundSelect" class="hidden w-full max-w-2xl zen-box rounded-2xl p-5 md:p-8 text-center my-auto">
+            <h2 id="hallTitle" class="font-title text-xl md:text-3xl font-bold gold-gradient-text mb-1 md:mb-2">SẢNH TU LUYỆN</h2>
+            <p id="hallSubtitle" class="text-zenMuted text-xs md:text-sm mb-4 md:mb-6">Chọn tầng thiền định phù hợp với căn cơ của bạn</p>
+
+            <div class="space-y-3 text-left">
+                <!-- Vòng 1 -->
+                <button onclick="startQuiz(1)" class="w-full p-3.5 md:p-4 rounded-xl border border-zenBorder bg-zenWood/40 hover:border-zenGold hover:bg-zenWood transition flex justify-between items-center group">
+                    <div>
+                        <div class="font-title font-bold text-zenGold text-sm md:text-lg group-hover:text-white">🪷 Vòng 1: Khởi Tâm Tịnh Hóa</div>
+                        <div id="r1Desc" class="text-xs text-zenMuted mt-0.5">Nền tảng vững chắc</div>
+                    </div>
+                    <span class="text-zenGold text-lg md:text-xl font-bold group-hover:translate-x-1 transition">➔</span>
+                </button>
+
+                <!-- Vòng 2 -->
+                <button onclick="startQuiz(2)" class="w-full p-3.5 md:p-4 rounded-xl border border-zenBorder bg-zenWood/40 hover:border-zenGold hover:bg-zenWood transition flex justify-between items-center group">
+                    <div>
+                        <div class="font-title font-bold text-zenGold text-sm md:text-lg group-hover:text-white">🪷 Vòng 2: Định Tâm Chuyên Năng</div>
+                        <div id="r2Desc" class="text-xs text-zenMuted mt-0.5">Liên kết tư duy</div>
+                    </div>
+                    <span class="text-zenGold text-lg md:text-xl font-bold group-hover:translate-x-1 transition">➔</span>
+                </button>
+
+                <!-- Vòng 3 -->
+                <button onclick="startQuiz(3)" class="w-full p-3.5 md:p-4 rounded-xl border border-zenBorder bg-zenWood/40 hover:border-zenGold hover:bg-zenWood transition flex justify-between items-center group">
+                    <div>
+                        <div class="font-title font-bold text-zenGold text-sm md:text-lg group-hover:text-white">🪷 Vòng 3: Giác Ngộ Tự Tại</div>
+                        <div id="r3Desc" class="text-xs text-zenMuted mt-0.5">Thử thách tổng hợp</div>
+                    </div>
+                    <span class="text-zenGold text-lg md:text-xl font-bold group-hover:translate-x-1 transition">➔</span>
+                </button>
+            </div>
+        </section>
+
+
+        <!-- ================= MÀN HÌNH 3: LÀM BÀI QUIZ ================= -->
+        <section id="screenQuiz" class="hidden w-full max-w-3xl zen-box rounded-2xl p-3 sm:p-5 md:p-6">
+            <!-- Info Bar Header -->
+            <div class="flex justify-between items-center border-b border-zenBorder/50 pb-2.5 mb-3 text-xs md:text-sm">
+                <div class="flex items-center gap-2">
+                    <span id="quizBadge" class="bg-zenGold/20 text-zenGold font-bold px-2.5 py-0.5 md:py-1 rounded-md border border-zenGold/40 text-xs">Vòng 1</span>
+                    <span id="quizProgress" class="text-zenMuted font-serif">Câu 1/30</span>
+                </div>
+                
+                <!-- Countdown Clock -->
+                <div class="flex items-center gap-1.5 bg-zenBg px-3 py-1 rounded-full border border-zenBorder">
+                    <span class="text-red-400 text-xs md:text-sm">⏳</span>
+                    <span id="timerText" class="font-mono font-bold text-sm md:text-base text-zenGoldLight">15s</span>
+                </div>
+            </div>
+
+            <!-- Question Area -->
+            <div class="bg-zenWood/30 border border-zenBorder/60 rounded-xl p-3.5 sm:p-4 md:p-5 mb-3 md:mb-4">
+                <!-- Yêu cầu tiếng Việt ghim đỏ chữ vàng gọn gàng trên 1 dòng -->
+                <p id="questionPrompt" class="text-xs text-zenGold font-bold mb-2 flex items-center gap-1.5 border-b border-zenBorder/30 pb-1">
+                    <span class="text-red-400">📌</span> <span id="promptText" class="truncate">Chọn đáp án đúng nhất để hoàn thành câu:</span>
+                </p>
+
+                <!-- Nội dung câu hỏi Tiếng Hàn -->
+                <div id="questionText" class="text-sm sm:text-base md:text-lg font-bold text-zenGoldLight font-serif leading-snug sm:leading-relaxed whitespace-pre-line">
+                </div>
+            </div>
+
+            <!-- Options Grid -->
+            <div id="optionsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3 mb-3 md:mb-4">
+            </div>
+
+            <!-- Thẻ Khai Thị -->
+            <div id="cardExpl" class="hidden border border-zenGold/60 bg-zenWood/90 rounded-xl p-3 mb-3 shadow-xl transition-all duration-300">
+                <div class="flex items-center gap-1.5 text-zenGold font-bold text-xs mb-1">
+                    <span>✨ THẺ KHAI THỊ</span>
+                </div>
+                <p id="explTranslation" class="text-xs md:text-sm text-zenGoldLight font-serif italic mb-0.5"></p>
+                <p id="explNote" class="text-xs text-zenMuted"></p>
+            </div>
+
+            <!-- Navigation Button Bar (Thêm nút Câu Trước) -->
+            <div class="flex justify-between items-center gap-3">
+                <button id="btnPrev" onclick="prevQuestion()" disabled class="px-4 md:px-5 py-2 rounded-lg border border-zenBorder bg-zenWood/60 hover:bg-zenWood hover:border-zenGold text-zenGoldLight text-xs md:text-sm font-bold font-title transition disabled:opacity-40 disabled:cursor-not-allowed">
+                    ◀ CÂU TRƯỚC
+                </button>
+                <button id="btnNext" onclick="nextQuestion()" disabled class="px-5 py-2 rounded-lg btn-zen-primary text-xs md:text-sm font-bold font-title">
+                    CÂU TIẾP THEO ➔
+                </button>
+            </div>
+        </section>
+
+
+        <!-- ================= MÀN HÌNH 4: TỔNG KẾT & SÁM HỐI ================= -->
+        <section id="screenResult" class="hidden w-full max-w-3xl zen-box rounded-2xl p-5 md:p-8">
+            <div class="text-center mb-6">
+                <div class="text-4xl md:text-5xl mb-2">🔔</div>
+                <h2 class="font-title text-xl md:text-4xl font-extrabold gold-gradient-text mb-1">HỒI HƯỚNG VIÊN MÃN</h2>
+                <p class="text-zenMuted text-xs md:text-sm italic">Kết quả khóa tu luyện ngắn hạn</p>
+
+                <div class="my-3 md:my-4 inline-block bg-zenBg border-2 border-zenGold px-5 py-2.5 md:px-6 md:py-3 rounded-2xl">
+                    <span class="text-xs text-zenMuted block uppercase tracking-widest mb-0.5">Điểm số Tịnh Tiến</span>
+                    <span id="finalScore" class="font-title text-2xl md:text-4xl font-bold text-zenGold">0 / 0</span>
+                </div>
+
+                <!-- Lời nhắn Cô Hannie & Thông điệp thiền -->
+                <div class="bg-zenWood/40 border border-zenGold/30 rounded-xl p-3.5 md:p-4 max-w-xl mx-auto space-y-2.5 text-left shadow-inner">
+                    <div class="flex items-start gap-2.5">
+                        <span class="text-xl md:text-2xl flex-shrink-0">👩‍🏫</span>
+                        <div>
+                            <div class="font-bold text-zenGold text-xs uppercase tracking-wide">Lời nhắn từ Cô Hannie:</div>
+                            <p id="hannieMsg" class="text-xs md:text-base text-zenGoldLight font-serif font-semibold mt-0.5 leading-relaxed"></p>
+                        </div>
+                    </div>
+                    <div class="border-t border-zenBorder/40 pt-2 flex items-start gap-2.5">
+                        <span class="text-lg md:text-xl flex-shrink-0">🪷</span>
+                        <div>
+                            <div class="font-bold text-zenMuted text-xs uppercase tracking-wide">Thông Điệp Thiền Định:</div>
+                            <p id="zenMsg" class="text-xs md:text-sm text-zenMuted font-serif italic mt-0.5"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phần Sám Hối Tu Luyện (Các câu làm sai) -->
+            <div id="samHoiSection" class="mb-5">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-zenBorder pb-2 mb-3 gap-2">
+                    <h3 class="font-title text-base md:text-xl font-bold text-zenGold flex items-center gap-2">
+                        <span>📿 SÁM HỐI TU LUYỆN</span>
+                        <span class="text-xs text-zenMuted font-normal font-serif">(Danh sách câu chưa đúng)</span>
+                    </h3>
+
+                    <!-- NÚT ÔN LẠI RIÊNG CÁC CÂU SAI -->
+                    <button id="btnRetryWrong" onclick="startRetryWrongOnly()" class="px-3.5 py-1.5 rounded-lg bg-red-900/80 border border-red-500 hover:bg-red-800 text-red-200 text-xs font-bold transition flex items-center gap-1 shadow-md">
+                        <span>🔥</span> ÔN LẠI RIÊNG CÁC CÂU SAI
+                    </button>
+                </div>
+
+                <div id="samHoiList" class="space-y-3 max-h-64 md:max-h-80 overflow-y-auto pr-1">
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 justify-center pt-1">
+                <button onclick="retryCurrentRound()" class="px-4 py-2.5 rounded-xl border border-zenGold text-zenGold hover:bg-zenGold hover:text-zenBg transition font-bold text-xs md:text-sm">
+                    🔄 TU LUYỆN LẠI VÒNG NÀY
+                </button>
+                <button onclick="goHome()" class="px-4 py-2.5 rounded-xl btn-zen-primary font-bold text-xs md:text-sm">
+                    🏠 TRỞ VỀ ĐẠI ĐIỆN
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="ui-container w-full p-2.5 border-t border-zenBorder/40 bg-zenBg/90 text-center text-xs text-zenMuted flex flex-col sm:flex-row justify-between items-center gap-2 px-6">
+        <div>Thiền Đường Hàn Ngữ Cô Hannie © 2026 • Tâm Bình Thế Giới Bình</div>
+        
+        <button id="btnSoundToggle" onclick="toggleAudio()" class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-zenBorder bg-zenWood/60 hover:border-zenGold text-zenGoldLight text-xs transition">
+            <span id="soundIcon">🔊</span>
+            <span id="soundStatusText">Âm thanh: BẬT</span>
+        </button>
+    </footer>
+
+    <!-- JS Logic -->
+    <script>
+        /* ==========================================================================
+           1. WEB AUDIO API SYNTHESIZER
+           ========================================================================== */
+        let audioCtx = null;
+        let isAudioMuted = false;
+
+        function initAudio() {
+            if (!audioCtx) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioContext();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function playMoktakSound() {
+            if (isAudioMuted) return;
+            initAudio();
+
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(650, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.08);
+
+            gain.gain.setValueAtTime(0.9, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.09);
+        }
+
+        function playTempleBellSound() {
+            if (isAudioMuted) return;
+            initAudio();
+
+            const now = audioCtx.currentTime;
+            const freqs = [150, 300, 452, 605, 890];
+            const gains = [0.8, 0.4, 0.2, 0.1, 0.05];
+
+            freqs.forEach((freq, idx) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, now);
+
+                gain.gain.setValueAtTime(gains[idx], now);
+                gain.gain.exponentialRampToValueAtTime(0.0001, now + 4.5);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start(now);
+                osc.stop(now + 4.6);
+            });
+        }
+
+        function toggleAudio() {
+            isAudioMuted = !isAudioMuted;
+            const soundIcon = document.getElementById('soundIcon');
+            const soundStatusText = document.getElementById('soundStatusText');
+
+            if (isAudioMuted) {
+                soundIcon.textContent = '🔇';
+                soundStatusText.textContent = 'Âm thanh: TẮT';
+            } else {
+                soundIcon.textContent = '🔊';
+                soundStatusText.textContent = 'Âm thanh: BẬT';
+                playMoktakSound();
+            }
+        }
+
+
+        /* ==========================================================================
+           2. KHÓI TRẦM CANVAS ANIMATION
+           ========================================================================== */
+        const canvas = document.getElementById('incenseCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class SmokeParticle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + Math.random() * 50;
+                this.vx = (Math.random() - 0.5) * 0.4;
+                this.vy = - (Math.random() * 0.5 + 0.3);
+                this.alpha = Math.random() * 0.2 + 0.05;
+                this.radius = Math.random() * 40 + 20;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.alpha -= 0.0003;
+                if (this.y < -50 || this.alpha <= 0) {
+                    this.reset();
+                }
+            }
+            draw() {
+                ctx.save();
+                ctx.beginPath();
+                const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
+                gradient.addColorStop(0, `rgba(212, 175, 55, ${this.alpha})`);
+                gradient.addColorStop(1, 'rgba(212, 175, 55, 0)');
+                ctx.fillStyle = gradient;
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < 35; i++) {
+            particles.push(new SmokeParticle());
+        }
+
+        function animateSmoke() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateSmoke);
+        }
+        animateSmoke();
+
+
+        /* ==========================================================================
+           3. DỮ LIỆU ĐỀ THI & BỘ TỪ LOẠI CHỈN CHU
+           ========================================================================== */
+        
+        // --- 3.1 DỮ LIỆU SẢNH TỪ VỰNG (N, V, A, Adv) ---
+        const vocabBank = [
+            // --- VÒNG 1 (30 câu) ---
+            { kr: "신청하다", vi: "Đăng ký / Nộp đơn", type: "V", r: 1 },
+            { kr: "버리다", vi: "Vứt bỏ / Bỏ đi", type: "V", r: 1 },
+            { kr: "그림을 그리다", vi: "Vẽ tranh", type: "V", r: 1 },
+            { kr: "비가 그치다", vi: "Tạnh mưa", type: "V", r: 1 },
+            { kr: "예약하다", vi: "Đặt trước", type: "V", r: 1 },
+            { kr: "오래되다", vi: "Lâu đời / Cũ", type: "A", r: 1 },
+            { kr: "주차장", vi: "Bãi đỗ xe", type: "N", r: 1 },
+            { kr: "갑자기", vi: "Đột nhiên / Đột ngột", type: "Adv", r: 1 },
+            { kr: "다르다", vi: "Khác biệt", type: "A", r: 1 },
+            { kr: "길이 막히다", vi: "Kẹt xe / Tắc đường", type: "V", r: 1 },
+            { kr: "복잡하다", vi: "Phức tạp / Đông đúc", type: "A", r: 1 },
+            { kr: "연습하다", vi: "Luyện tập", type: "V", r: 1 },
+            { kr: "소리가 나다", vi: "Phát ra âm thanh", type: "V", r: 1 },
+            { kr: "날마다", vi: "Mỗi ngày / Hằng ngày", type: "Adv", r: 1 },
+            { kr: "자르다", vi: "Cắt", type: "V", r: 1 },
+            { kr: "종류", vi: "Chủng loại / Loại", type: "N", r: 1 },
+            { kr: "빌리다", vi: "Mượn / Vay", type: "V", r: 1 },
+            { kr: "알려주다", vi: "Cho biết / Cho hay", type: "V", r: 1 },
+            { kr: "보여주다", vi: "Cho xem / Cho thấy", type: "V", r: 1 },
+            { kr: "도움이 되다", vi: "Có ích / Giúp ích", type: "V", r: 1 },
+            { kr: "전화를 잘못 걸다", vi: "Gọi nhầm số", type: "V", r: 1 },
+            { kr: "안경을 쓰다", vi: "Đeo kính", type: "V", r: 1 },
+            { kr: "거울", vi: "Gương", type: "N", r: 1 },
+            { kr: "닦다", vi: "Lau / Chùi / Đánh (răng)", type: "V", r: 1 },
+            { kr: "도장", vi: "Con dấu", type: "N", r: 1 },
+            { kr: "화분", vi: "Chậu hoa", type: "N", r: 1 },
+            { kr: "상자", vi: "Hộp / Thùng", type: "N", r: 1 },
+            { kr: "입구", vi: "Lối vào / Cổng vào", type: "N", r: 1 },
+            { kr: "지우다", vi: "Tẩy / Xóa", type: "V", r: 1 },
+            { kr: "돈을 찾다", vi: "Rút tiền", type: "V", r: 1 },
+
+            // --- VÒNG 2 (35 câu) ---
+            { kr: "가져오다", vi: "Mang đến", type: "V", r: 2 },
+            { kr: "놓다", vi: "Đặt / Để", type: "V", r: 2 },
+            { kr: "특별하다", vi: "Đặc biệt", type: "A", r: 2 },
+            { kr: "새롭다", vi: "Mới mẻ", type: "A", r: 2 },
+            { kr: "계획을 세우다", vi: "Lập kế hoạch", type: "V", r: 2 },
+            { kr: "바꾸다", vi: "Đổi / Thay đổi", type: "V", r: 2 },
+            { kr: "환전하다", vi: "Đổi tiền", type: "V", r: 2 },
+            { kr: "가꾸다", vi: "Trồng / Chăm sóc", type: "V", r: 2 },
+            { kr: "마음에 들다", vi: "Vừa ý / Ưng ý", type: "V", r: 2 },
+            { kr: "태어나다", vi: "Sinh ra", type: "V", r: 2 },
+            { kr: "얼굴", vi: "Khuôn mặt", type: "N", r: 2 },
+            { kr: "젊다", vi: "Trẻ trung", type: "A", r: 2 },
+            { kr: "축제하다", vi: "Tổ chức lễ hội", type: "V", r: 2 },
+            { kr: "비교하다", vi: "So sánh", type: "V", r: 2 },
+            { kr: "포함하다", vi: "Bao gồm", type: "V", r: 2 },
+            { kr: "소개하다", vi: "Giới thiệu", type: "V", r: 2 },
+            { kr: "물어보다", vi: "Hỏi thử", type: "V", r: 2 },
+            { kr: "추천하다", vi: "Gợi ý / Tiến cử", type: "V", r: 2 },
+            { kr: "정이 들다", vi: "Nảy sinh tình cảm", type: "V", r: 2 },
+            { kr: "입어 보다", vi: "Mặc thử", type: "V", r: 2 },
+            { kr: "습관을 키우다", vi: "Rèn luyện thói quen", type: "V", r: 2 },
+            { kr: "칭찬하다", vi: "Khen ngợi", type: "V", r: 2 },
+            { kr: "촬영하다", vi: "Quay phim / Chụp ảnh", type: "V", r: 2 },
+            { kr: "방문하다", vi: "Ghé thăm", type: "V", r: 2 },
+            { kr: "튼튼하다", vi: "Chắc chắn / Khỏe mạnh", type: "A", r: 2 },
+            { kr: "구하다", vi: "Tìm kiếm / Cứu giúp", type: "V", r: 2 },
+            { kr: "마치다", vi: "Hoàn thành / Kết thúc", type: "V", r: 2 },
+            { kr: "떠나다", vi: "Rời đi / Khởi hành", type: "V", r: 2 },
+            { kr: "대회에 나가다", vi: "Tham gia cuộc thi", type: "V", r: 2 },
+            { kr: "계속", vi: "Liên tục / Tiếp tục", type: "Adv", r: 2 },
+            { kr: "주변", vi: "Xung quanh", type: "N", r: 2 },
+            { kr: "이유/원인", vi: "Lý do / Nguyên nhân", type: "N", r: 2 },
+            { kr: "상처를 치료하다", vi: "Điều trị vết thương", type: "V", r: 2 },
+            { kr: "싸우다", vi: "Cãi nhau / Đánh nhau", type: "V", r: 2 },
+            { kr: "지키다", vi: "Gìn giữ / Tuân thủ", type: "V", r: 2 },
+            { kr: "일기장", vi: "Cuốn nhật ký", type: "N", r: 2 },
+
+            // --- VÒNG 3 (35 câu) ---
+            { kr: "비누", vi: "Xà phòng", type: "N", r: 3 },
+            { kr: "냄새", vi: "Mùi hương / Mùi", type: "N", r: 3 },
+            { kr: "제목", vi: "Tiêu đề / Tựa đề", type: "N", r: 3 },
+            { kr: "미리", vi: "Trước / Sẵn", type: "Adv", r: 3 },
+            { kr: "정확하다", vi: "Chính xác", type: "A", r: 3 },
+            { kr: "가깝다", vi: "Gần", type: "A", r: 3 },
+            { kr: "수첩", vi: "Sổ tay", type: "N", r: 3 },
+            { kr: "수저", vi: "Thìa và đũa", type: "N", r: 3 },
+            { kr: "달력", vi: "Lịch", type: "N", r: 3 },
+            { kr: "접시", vi: "Đĩa", type: "N", r: 3 },
+            { kr: "느리다", vi: "Chậm chạp", type: "A", r: 3 },
+            { kr: "느끼다", vi: "Cảm nhận", type: "V", r: 3 },
+            { kr: "땀을 흘리다", vi: "Đổ mồ hôi", type: "V", r: 3 },
+            { kr: "다치다", vi: "Bị thương", type: "V", r: 3 },
+            { kr: "그만두다", vi: "Từ bỏ / Nghỉ làm", type: "V", r: 3 },
+            { kr: "부끄럽다", vi: "Xấu hổ / Thẹn thùng", type: "A", r: 3 },
+            { kr: "바뀌다", vi: "Bị thay đổi / Được đổi", type: "V", r: 3 },
+            { kr: "취직하다", vi: "Xin được việc làm", type: "V", r: 3 },
+            { kr: "드디어", vi: "Cuối cùng thì", type: "Adv", r: 3 },
+            { kr: "놀이터", vi: "Sân chơi trẻ em", type: "N", r: 3 },
+            { kr: "갈아타다", vi: "Đổi xe / Đổi tuyến", type: "V", r: 3 },
+            { kr: "걸어가다", vi: "Đi bộ đi", type: "V", r: 3 },
+            { kr: "환영하다", vi: "Hoan nghênh / Chào đón", type: "V", r: 3 },
+            { kr: "적당하다", vi: "Thích hợp / Vừa phải", type: "A", r: 3 },
+            { kr: "취소하다", vi: "Hủy bỏ", type: "V", r: 3 },
+            { kr: "확인하다", vi: "Xác nhận / Kiểm tra", type: "V", r: 3 },
+            { kr: "버튼을 누르다", vi: "Bấm nút", type: "V", r: 3 },
+            { kr: "돌보다", vi: "Chăm sóc / Trông nom", type: "V", r: 3 },
+            { kr: "데리다", vi: "Dẫn theo / Kèm theo", type: "V", r: 3 },
+            { kr: "빌려주다", vi: "Cho mượn", type: "V", r: 3 },
+            { kr: "인사를 나누다", vi: "Trao lời chào hỏi", type: "V", r: 3 },
+            { kr: "과자", vi: "Bánh kẹo", type: "N", r: 3 },
+            { kr: "상품", vi: "Sản phẩm / Phần thưởng", type: "N", r: 3 },
+            { kr: "참석하다", vi: "Tham dự / Có mặt", type: "V", r: 3 },
+            { kr: "무료", vi: "Miễn phí", type: "N", r: 3 }
+        ];
+
+        const extraDistractors = {
+            N: ["Tài xế", "Hành lý", "Nhà hàng", "Ký túc xá", "Đồ ăn", "Địa chỉ", "Sân bay", "Thư viện", "Chợ", "Trường học"],
+            V: ["Ăn uống", "Đi lại", "Mua sắm", "Gặp gỡ", "Tập thể dục", "Nghe nhạc", "Học tập", "Nói chuyện", "Làm việc", "Nghỉ ngơi"],
+            A: ["Đẹp đẽ", "Đắt đỏ", "Rẻ", "Nóng nực", "Lạnh lẽo", "Vui vẻ", "Buồn bã", "Thú vị", "Khó khăn", "Dễ dàng"],
+            Adv: ["Bây giờ", "Ngày mai", "Hôm qua", "Luôn luôn", "Rất nhiều", "Thường xuyên", "Thỉnh thoảng", "Đặc biệt", "Thật sự"]
+        };
+
+
+        // --- 3.2 DỮ LIỆU SẢNH NGỮ PHÁP (TOPIK I) - ĐỤC LỖ NGUYÊN CỤM NGỮ PHÁP CHUẨN ---
+        
+        // VÒNG 1: 40 CÂU ĐỤC LỖ ĐƠN (30s/câu)
+        const grammarRound1 = [
+            { q: "이번 주말에 날씨가 (_____).", opts: ["좋으면 좋겠어요", "좋아야 돼요", "좋으러 가요", "좋은 적이 있어요"], ans: 0, trans: "Ước gì thời tiết cuối tuần này đẹp.", note: "-(으)면 좋겠다: Ước gì..." },
+            { q: "내일 시험이 있어서 도서관에 (_____).", opts: ["가야 해요", "가도 돼요", "가지 못해요", "가고 있어요"], ans: 0, trans: "Vì có bài thi nên tôi phải đi thư viện.", note: "-아/어야 하다: Phải làm gì..." },
+            { q: "여기에서 담배를 피우면 (_____).", opts: ["안 돼요", "돼요", "좋겠어요", "싶어요"], ans: 0, trans: "Hút thuốc ở đây là không được.", note: "-(으)면 안 되다: Không được phép..." },
+            { q: "밥을 (_____) 약을 드세요.", opts: ["먹고 나서", "먹기 때문에", "먹으러", "먹을 때"], ans: 0, trans: "Hãy uống thuốc sau khi ăn cơm xong.", note: "-고 나서: Sau khi..." },
+            { q: "한국어 책을 읽으려고 도서관에 (_____).", opts: ["가요", "갑니다", "갑시다", "갔습니다"], ans: 0, trans: "Tôi đi thư viện để đọc sách tiếng Hàn.", note: "-(으)러 가다: Đi để..." },
+            { q: "저는 운전을 (_____).", opts: ["할 수 있어요", "할 수 없어요", "하는 중이에요", "하기로 했어요"], ans: 0, trans: "Tôi có thể lái xe.", note: "-(으)ㄹ 수 있다: Có thể..." },
+            { q: "어제 너무 피곤해서 숙제를 (_____).", opts: ["하지 못했어요", "하지 마세요", "하기 위해서", "하는 중에"], ans: 0, trans: "Hôm qua vì quá mệt nên tôi không thể làm bài tập.", note: "-지 못하다: Không thể..." },
+            { q: "비가 (_____) 축구를 못 했어요.", opts: ["오기 때문에", "오면 좋겠어요", "오면서", "오기로 했어요"], ans: 0, trans: "Vì trời mưa nên không thể đá bóng.", note: "-기 때문에: Vì... nên..." },
+            { q: "한국에서 (_____) 있습니까?", opts: ["살아본 적이", "살기로 한 적이", "살아도", "살게 된 적이"], ans: 0, trans: "Bạn đã từng sống ở Hàn Quốc chưa?", note: "-(으)ㄴ 적이 있다: Đã từng..." },
+            { q: "선생님 (_____) 이 내용을 잘 이해했습니다.", opts: ["덕분에", "마다", "보다", "위해서"], ans: 0, trans: "Nhờ có thầy/cô mà tôi đã hiểu rõ nội dung này.", note: "Danh từ + 덕분에: Nhờ có..." },
+            { q: "내일은 오늘보다 더 (_____).", opts: ["추울 것 같아요", "춥기 때문에", "추워야 해요", "춥기로 했어요"], ans: 0, trans: "Ngày mai có vẻ sẽ lạnh hơn hôm nay.", note: "-(으)ㄹ 것 같다: Dự đoán có vẻ..." },
+            { q: "영화가 너무 재미있어서 다시 (_____).", opts: ["보고 싶어요", "보러 가야 해요", "보면 안 돼요", "보게 되었어요"], ans: 0, trans: "Phim hay quá nên tôi muốn xem lại.", note: "-고 싶다: Muốn..." },
+            { q: "지하철을 (_____) 가면 더 빠릅니다.", opts: ["타고", "타러", "타면", "타서"], ans: 0, trans: "Nếu đi bằng tàu điện ngầm sẽ nhanh hơn.", note: "-(으)면: Nếu..." },
+            { q: "약국에 가려면 어디로 (_____)?", opts: ["가야 해요", "가도 돼요", "가면 안 돼요", "가서 돼요"], ans: 0, trans: "Muốn đi hiệu thuốc thì phải đi đường nào?", note: "-아/어야 하다: Phải..." },
+            { q: "날마다 아침 7시에 (_____).", opts: ["일어납니다", "일어납시다", "일어납시오", "일어났습니다"], ans: 0, trans: "Tôi dậy vào 7h sáng mỗi ngày.", note: "Hành động thói quen hiện tại." },
+            { q: "손을 (_____) 식사를 하십시오.", opts: ["씻고 나서", "씻으러", "씻기 위해서", "씻으면"], ans: 0, trans: "Hãy rửa tay rồi dùng bữa.", note: "-고 나서: Sau khi..." },
+            { q: "비가 오니까 우산을 (_____) 가세요.", opts: ["가지고", "가가지고", "가며", "가자"], ans: 0, trans: "Trời mưa nên hãy mang dù đi.", note: "가지고 가다: Mang theo đi." },
+            { q: "시간이 (_____) 연락해 주세요.", opts: ["있을 때", "있는 동안", "있기 때문에", "있어서"], ans: 0, trans: "Khi nào có thời gian hãy liên lạc cho tôi.", note: "-(으)ㄹ 때: Khi..." },
+            { q: "한국어를 (_____) 1년이 되었습니다.", opts: ["공부한 지", "공부할 때", "공부하고 나서", "공부하면"], ans: 0, trans: "Tôi đã học tiếng Hàn được 1 năm.", note: "-(으)ㄴ 지 되다: Đã trôi qua bao lâu..." },
+            { q: "지금 음악을 (_____).", opts: ["듣고 있어요", "들으러 가요", "듣기 때문이에요", "듣면 안 돼요"], ans: 0, trans: "Bây giờ tôi đang nghe nhạc.", note: "-고 있다: Đang..." },
+            { q: "버스를 (_____) 지하철을 타세요.", opts: ["타지 말고", "타지 않고", "안 타고", "못 타고"], ans: 0, trans: "Đừng đi xe buýt, hãy đi tàu điện ngầm.", note: "-지 말다: Đừng..." },
+            { q: "한국 음식이 매워서 잘 (_____).", opts: ["못 먹어요", "안 먹어요", "먹지 않아요", "먹지 마세요"], ans: 0, trans: "Món Hàn cay nên tôi không thể ăn giỏi.", note: "못 V: Không thể..." },
+            { q: "주말마다 친구들과 축구를 (_____).", opts: ["합니다", "합시다", "하십시오", "했습니다"], ans: 0, trans: "Mỗi cuối tuần tôi đều đá bóng với bạn.", note: "Thói quen hiện tại." },
+            { q: "선생님께서 교실로 (_____).", opts: ["들어오십니다", "들어옵니다", "들어오자", "들어오라"], ans: 0, trans: "Thầy cô đang đi vào lớp học.", note: "Kính ngữ -(으)시-." },
+            { q: "저는 사과(_____) 딸기를 더 좋아합니다.", opts: ["보다", "마다", "처럼", "하고"], ans: 0, trans: "Tôi thích dâu tây hơn táo.", note: "보다: So với..." },
+            { q: "새 옷을 (_____) 기분이 좋습니다.", opts: ["입어서", "입으러", "입으면", "입고"], ans: 0, trans: "Vì mặc áo mới nên tâm trạng rất tốt.", note: "-아/어서: Vì... nên..." },
+            { q: "제주도에 (_____) 있습니까?", opts: ["가본 적이", "가야 할 적이", "가면 적이", "가고 적이"], ans: 0, trans: "Bạn đã từng thử đi đảo Jeju chưa?", note: "-아/어 보다 + -(으)ㄴ 적이 있다." },
+            { q: "내일 친구를 (_____).", opts: ["만나려고 해요", "만나서 해요", "만나면 돼요", "만나기 때문이에요"], ans: 0, trans: "Ngày mai tôi định gặp bạn.", note: "-(으)려고 하다: Định..." },
+            { q: "불을 (_____).", opts: ["켜면 안 돼요", "켜서 안 돼요", "켜고 안 돼요", "켜러 안 돼요"], ans: 0, trans: "Bật đèn lên là không được.", note: "-(으)면 안 되다: Không được." },
+            { q: "지금 공부하는 (_____) 전화가 왔습니다.", opts: ["중에", "전에", "후에", "때에"], ans: 0, trans: "Đang trong lúc học bài thì có điện thoại tới.", note: "는 중에: Trong lúc..." },
+            { q: "이 옷을 (_____).", opts: ["입어 보세요", "입고 보세요", "입으러 보세요", "입기 보세요"], ans: 0, trans: "Hãy mặc thử chiếc áo này xem.", note: "-아/어 보다: Thử..." },
+            { q: "날씨가 날마다 (_____).", opts: ["따뜻해지고 있어요", "따뜻하고 있어요", "따뜻하여 있어요", "따뜻하게 있어요"], ans: 0, trans: "Thời tiết mỗi ngày đang trở nên ấm áp hơn.", note: "-아/어지다 + -고 있다." },
+            { q: "이곳은 주차금지 구역(_____).", opts: ["입니다", "입니까", "이었습니다", "이고"], ans: 0, trans: "Nơi này là khu vực cấm đỗ xe.", note: "입니다: Là..." },
+            { q: "한국어를 (_____) 쉽지 않습니다.", opts: ["배우기가", "배우러", "배우면", "배워서"], ans: 0, trans: "Việc học tiếng Hàn không hề dễ dàng.", note: "-기: Danh từ hóa." },
+            { q: "다음 주에 고향으로 (_____).", opts: ["떠날 예정입니다", "떠난 예정입니다", "떠나 예정입니다", "떠나고 예정입니다"], ans: 0, trans: "Dự định tuần sau tôi sẽ về quê.", note: "-(으)ㄹ 예정이다: Dự định..." },
+            { q: "열이 많이 나니까 병원에 (_____).", opts: ["가 보세요", "가지 마세요", "가도 돼요", "가야만 해요"], ans: 0, trans: "Vì bị sốt cao nên hãy thử đến bệnh viện xem.", note: "-아/어 보세요." },
+            { q: "컴퓨터 전원 버튼을 (_____) 켜세요.", opts: ["눌러서", "누르러", "누르면", "누르고"], ans: 0, trans: "Hãy nhấn nút nguồn rồi bật máy tính lên.", note: "-아/어서: Trình tự." },
+            { q: "건강을 (_____) 매일 운동을 합니다.", opts: ["위해서", "때문에", "덕분에", "따라서"], ans: 0, trans: "Vì sức khỏe nên tôi tập thể dục mỗi ngày.", note: "을/를 위해서: Vì..." },
+            { q: "어제는 밤늦게까지 (_____).", opts: ["일했습니다", "일합니다", "일합시다", "일하겠어요"], ans: 0, trans: "Hôm qua tôi đã làm việc đến tận khuya.", note: "Thì quá khứ -았/었습니다." },
+            { q: "선생님, 질문이 (_____).", opts: ["있습니다", "계십니다", "있으십니다", "있으셨습니다"], ans: 0, trans: "Thưa thầy/cô, em có câu hỏi ạ.", note: "있다 -> 있습니다." }
+        ];
+
+        // VÒNG 2: 20 CÂU HỘI THOẠI & LIÊN KẾT NGUYÊN CỤM (60s / 1 phút/câu)
+        const grammarRound2 = [
+            {
+                q: "가: 한국 음식을 좋아해요?\n나: 매운 음식은 (_____), 비빔밥은 좋아해요.",
+                opts: ["못 먹지만", "못 먹는데", "못 먹어서", "못 먹으면서"],
+                ans: 0,
+                trans: "Hỏi: Bạn thích món Hàn không? - Đáp: Đồ cay tôi không ăn được nhưng thích Bibimbap.",
+                note: "-지만: Nhưng (đối lập)."
+            },
+            {
+                q: "가: 주말에 피곤했어요?\n나: 일을 (_____) 공부를 해서 좀 피곤했어요.",
+                opts: ["하면서", "하고 나서", "하기 전에", "하도록"],
+                ans: 0,
+                trans: "Hỏi: Cuối tuần có mệt không? - Đáp: Vừa làm vừa học nên hơi mệt.",
+                note: "-(으)면서: Vừa... vừa..."
+            },
+            {
+                q: "가: 이 도서관에서 큰 소리로 이야기해도 돼요?\n나: 아니요, 여기에서는 큰 소리로 (_____).",
+                opts: ["이야기하면 안 됩니다", "이야기해도 됩니다", "이야기하거나 안 됩니다", "이야기하도록 안 됩니다"],
+                ans: 0,
+                trans: "Hỏi: Nói chuyện to ở đây được không? - Đáp: Không, ở đây không được nói chuyện to.",
+                note: "-(으)면 안 되다: Cấm / Không được."
+            },
+            {
+                q: "가: 요즘 왜 운동을 열심히 해요?\n나: 건강해지(_____) 매일 운동을 하고 있어요.",
+                opts: ["려고", "려면", "면서", "지만"],
+                ans: 0,
+                trans: "Hỏi: Sao dạo này chăm tập thể dục thế? - Đáp: Tôi tập để trở nên khỏe mạnh.",
+                note: "-(으)려고: Để..."
+            },
+            {
+                q: "가: 언제 식사를 할 거예요?\n나: 손을 (_____) 밥을 먹을 거예요.",
+                opts: ["씻고 나서", "씻기 전에", "씻으면서", "씻으면"],
+                ans: 0,
+                trans: "Hỏi: Khi nào ăn cơm? - Đáp: Rửa tay xong tôi sẽ ăn.",
+                note: "-고 나서: Sau khi..."
+            },
+            {
+                q: "가: 오늘 옷을 따뜻하게 입었네요.\n나: 날씨가 많이 (_____) 따뜻한 옷을 입었어요.",
+                opts: ["추워졌으니까", "추워졌지만", "추워졌는데", "추워졌어도"],
+                ans: 0,
+                trans: "Hỏi: Hôm nay mặc ấm thế. - Đáp: Vì thời tiết trở nên lạnh nhiều rồi.",
+                note: "-아/어지다 + -(으)니까."
+            },
+            {
+                q: "가: 주말에 같이 영화 보러 갈래요?\n나: 미안해요. 주말에 시험이 (_____) 못 가요.",
+                opts: ["있기 때문에", "있기 위하여", "있을 때", "있으면서"],
+                ans: 0,
+                trans: "Hỏi: Cuối tuần đi xem phim không? - Đáp: Xin lỗi, vì có bài thi nên không đi được.",
+                note: "-기 때문에: Vì..."
+            },
+            {
+                q: "가: 이 책을 다 읽었어요?\n나: 아니요, 아직 (_____).",
+                opts: ["읽는 중이에요", "읽기 전이에요", "읽은 후이에요", "읽을 때이에요"],
+                ans: 0,
+                trans: "Hỏi: Đọc xong sách này chưa? - Đáp: Chưa, tôi vẫn đang đọc.",
+                note: "-는 중이다: Đang trong lúc..."
+            },
+            {
+                q: "가: 제주도에 가 본 적이 있어요?\n나: 네, 작년에 (_____).",
+                opts: ["가 봤어요", "가겠어요", "가야 해요", "가고 있어요"],
+                ans: 0,
+                trans: "Hỏi: Đã từng đi đảo Jeju chưa? - Đáp: Vâng, năm ngoái tôi đã đi thử rồi.",
+                note: "-아/어 봤다."
+            },
+            {
+                q: "가: 언제 고향에 돌아갈 거예요?\n나: 대학교를 (_____) 돌아갈 거예요.",
+                opts: ["졸업한 후에", "졸업하기 전에", "졸업하는 동안에", "졸업하기 때문에"],
+                ans: 0,
+                trans: "Hỏi: Khi nào về quê? - Đáp: Sau khi tốt nghiệp đại học tôi sẽ về.",
+                note: "-(으)ㄴ 후에: Sau khi..."
+            },
+            {
+                q: "가: 민수 씨는 지금 무엇을 해요?\n나: 방에서 음악을 (_____).",
+                opts: ["듣고 있어요", "들으러 가요", "듣기 때문이에요", "듣면 안 돼요"],
+                ans: 0,
+                trans: "Hỏi: Min-soo đang làm gì? - Đáp: Đang nghe nhạc trong phòng.",
+                note: "Bất quy tắc ㄷ (듣다 -> 듣고 있다)."
+            },
+            {
+                q: "가: 이 사과 얼마예요?\n나: 한 개에 1,000원(_____) 합니다.",
+                opts: ["씩", "마다", "밖에", "처럼"],
+                ans: 0,
+                trans: "Hỏi: Táo này bao nhiêu? - Đáp: 1,000 won mỗi quả.",
+                note: "씩: Mỗi/Từng."
+            },
+            {
+                q: "가: 저녁 식사 하셨어요?\n나: 아니요, 바빠서 아직 (_____).",
+                opts: ["못 먹었어요", "안 먹겠어요", "먹지 마세요", "먹을 수 없어요"],
+                ans: 0,
+                trans: "Hỏi: Đã ăn tối chưa? - Đáp: Chưa, vì bận nên chưa thể ăn.",
+                note: "못 V: Không thể do hoàn cảnh."
+            },
+            {
+                q: "가: 한국어 공부가 어렵지요?\n나: 네, (_____).",
+                opts: ["어렵지만 재미있어요", "어려워서 재미있어요", "어려우면 재미있어요", "어려우려고 재미있어요"],
+                ans: 0,
+                trans: "Hỏi: Học tiếng Hàn khó nhỉ? - Đáp: Vâng, khó nhưng thú vị.",
+                note: "-지만: Nhưng."
+            },
+            {
+                q: "가: 오늘 날씨가 참 좋네요.\n나: 네, 어디론가 놀러 (_____).",
+                opts: ["가기에 좋은 날씨예요", "가서 좋은 날씨예요", "가야 좋은 날씨예요", "가면 좋은 날씨예요"],
+                ans: 0,
+                trans: "Hỏi: Hôm nay thời tiết đẹp quá. - Đáp: Vâng, thời tiết rất tốt để đi chơi đâu đó.",
+                note: "-기에 좋다: Tốt cho việc..."
+            },
+            {
+                q: "가: 약은 언제 먹어야 돼요?\n나: 밥을 (_____) 30분 후에 드세요.",
+                opts: ["먹고 나서", "먹기 전에", "먹으면서", "먹으면"],
+                ans: 0,
+                trans: "Hỏi: Thuốc uống khi nào? - Đáp: Ăn cơm xong 30 phút rồi uống.",
+                note: "-고 나서: Sau khi..."
+            },
+            {
+                q: "가: 내일 몇 시에 만날까요?\n나: 2시에 (_____).",
+                opts: ["만나기로 해요", "만나려고 해요", "만나도록 해요", "만나게 돼요"],
+                ans: 0,
+                trans: "Hỏi: Mai mấy giờ gặp? - Đáp: Thống nhất gặp lúc 2h.",
+                note: "-기로 하다: Hẹn / Quyết định."
+            },
+            {
+                q: "가: 이 문을 열어도 돼요?\n나: 밖이 추우니까 (_____).",
+                opts: ["열지 마세요", "열어야 해요", "열어도 돼요", "열기로 해요"],
+                ans: 0,
+                trans: "Hỏi: Mở cửa này được không? - Đáp: Bên ngoài lạnh nên đừng mở.",
+                note: "-지 마세요: Đừng..."
+            },
+            {
+                q: "가: 사과를 좋아해요, 딸기를 좋아해요?\n나: 둘 다 (_____).",
+                opts: ["좋아해요", "합시다", "하십시오", "했습니다"],
+                ans: 0,
+                trans: "Đáp: Cả hai tôi đều thích.",
+                note: "Thì hiện tại."
+            },
+            {
+                q: "가: 지금 출발하면 늦지 않을까요?\n나: 지하철을 타면 (_____).",
+                opts: ["늦지 않을 것 같아요", "늦지 않은 것 같아요", "늦지 않는 것 같아요", "늦지 않고 것 같아요"],
+                ans: 0,
+                trans: "Đáp: Nếu đi tàu điện ngầm có vẻ sẽ không muộn đâu.",
+                note: "-(으)ㄹ 것 같다: Dự đoán."
+            }
+        ];
+
+        // VÒNG 3: 20 CÂU THỬ THÁCH SẮP XẾP ㄱㄴㄷㄹ & CHUẨN 100% TIẾNG HÀN (150s / 2 phút 30s/câu)
+        const grammarRound3 = [
+            {
+                q: "다음 글을 순서대로 맞게 나열한 것을 고르십시오.\n\nㄱ. 어제 친구가 우리 집에 왔습니다.\nㄴ. 그래서 같이 한국 음식을 만들었습니다.\nㄷ. 친구가 한국 음식을 먹고 싶다고 했습니다.\nㄹ. 우리는 정말 즐거운 시간을 보냈습니다.",
+                opts: ["ㄱ -> ㄷ -> ㄴ -> ㄹ", "ㄱ -> ㄴ -> ㄷ -> ㄹ", "ㄷ -> ㄱ -> ㄴ -> ㄹ", "ㄴ -> ㄱ -> ㄷ -> ㄹ"],
+                ans: 0,
+                trans: "Sắp xếp đúng: ㄱ (Hôm qua bạn đến nhà) -> ㄷ (Bạn nói muốn ăn đồ Hàn) -> ㄴ (Nên cùng làm) -> ㄹ (Đã rất vui).",
+                note: "Đoạn văn liên kết logic."
+            },
+            {
+                q: "다음 글을 순서대로 맞게 나열한 것을 고르십시오.\n\nㄱ. 아침에 일어나서 창문을 열었습니다.\nㄴ. 날씨가 너무 좋아서 기분이 좋았습니다.\nㄷ. 맑은 공기가 방 안으로 들어왔습니다.\nㄹ. 옷을 입고 산책을 하러 나갔습니다.",
+                opts: ["ㄱ -> ㄷ -> ㄴ -> ㄹ", "ㄱ -> ㄴ -> ㄷ -> ㄹ", "ㄷ -> ㄱ -> ㄴ -> ㄹ", "ㄹ -> ㄱ -> ㄷ -> ㄴ"],
+                ans: 0,
+                trans: "Sắp xếp đúng: ㄱ (Sáng dậy mở cửa) -> ㄷ (Không khí mát vào) -> ㄴ (Thời tiết đẹp nên thích) -> ㄹ (Đi dạo).",
+                note: "Thứ tự thời gian và cảm xúc."
+            },
+            {
+                q: "다음 글을 순서대로 맞게 나열한 것을 고르십시오.\n\nㄱ. 도서관에서 책을 빌렸습니다.\nㄴ. 집으로 돌아와서 책을 읽기 시작했습니다.\nㄷ. 내용이 너무 재미있어서 밤늦게까지 읽었습니다.\nㄹ. 주말에 읽을 책을 찾고 있었습니다.",
+                opts: ["ㄹ -> ㄱ -> ㄴ -> ㄷ", "ㄱ -> ㄹ -> ㄴ -> ㄷ", "ㄴ -> ㄱ -> ㄷ -> ㄹ", "ㄹ -> ㄴ -> ㄱ -> ㄷ"],
+                ans: 0,
+                trans: "Sắp xếp đúng: ㄹ (Tìm sách đọc cuối tuần) -> ㄱ (Mượn ở thư viện) -> ㄴ (Về nhà đọc) -> ㄷ (Đọc đến khuya).",
+                note: "Logic hành động."
+            },
+            {
+                q: "다음 빈칸에 들어갈 알맞은 존댓말 표현을 고르십시오.\n\n선생님, 저녁 식사 (_____)?",
+                opts: ["하셨습니까", "먹었습니다", "먹을까요", "드시지 않았습니다"],
+                ans: 0,
+                trans: "Thưa thầy/cô, ngài đã dùng bữa tối chưa ạ?",
+                note: "Kính ngữ tôn kính -(으)시-."
+            },
+            {
+                q: "길이 너무 안 좋아서 (_____).",
+                opts: ["걷기가 힘들었습니다", "걷기가 쉬웠습니다", "걷기로 했습니다", "걷게 되었습니다"],
+                ans: 0,
+                trans: "Vì đường quá xấu nên việc đi bộ đã rất vất vả.",
+                note: "-기: Danh từ hóa + 힘들다."
+            },
+            {
+                q: "냉장고에 사과가 하나 (_____).",
+                opts: ["밖에 없어요", "만 없어요", "도 없어요", "은 없어요"],
+                ans: 0,
+                trans: "Trong tủ lạnh chỉ ngoài 1 quả táo ra thì không còn gì.",
+                note: "밖에 + Phủ định: Chỉ..."
+            },
+            {
+                q: "어제는 날씨가 흐렸지만 오늘은 (_____).",
+                opts: ["매우 맑습니다", "비가 오기 때문입니다", "바람이 불면 좋겠습니다", "춥지 않아 졌습니다"],
+                ans: 0,
+                trans: "Hôm qua thời tiết âm u nhưng hôm nay lại rất quang đãng.",
+                note: "-지만: Nhưng (đối lập)."
+            },
+            {
+                q: "선생님께서 학생들에게 숙제를 (_____).", opts: ["하라고 하셨습니다", "하자고 하셨습니다", "하며 하셨습니다", "하더니 하셨습니다"],
+                ans: 0,
+                trans: "Thầy giáo đã bảo các học sinh làm bài tập.",
+                note: "Gián tiếp mệnh lệnh -(으)라고 하다."
+            },
+            {
+                q: "그 사람의 이름을 (_____).",
+                opts: ["들을 때마다 생각이 납니다", "들으면 생각이 안 납니다", "듣고 생각이 납니다", "듣기 때문에 생각이 안 납니다"],
+                ans: 0,
+                trans: "Mỗi khi nghe tên người đó tôi lại nhớ ra.",
+                note: "-(으)ㄹ 때마다: Mỗi khi..."
+            },
+            {
+                q: "열심히 공부를 (_____).",
+                opts: ["해야 시험을 잘 볼 수 있습니다", "하면 시험을 못 봅니다", "해서 시험을 안 봅니다", "하느라고 시험을 봅니다"],
+                ans: 0,
+                trans: "Phải học hành chăm chỉ thì mới thi tốt được.",
+                note: "-아/어야: Điều kiện bắt buộc."
+            },
+            {
+                q: "다음 글을 순서대로 맞게 나열한 것을 고르십시오.\n\nㄱ. 백화점에 가서 옷을 구경했습니다.\nㄴ. 마음에 드는 옷이 있어서 샀습니다.\nㄷ. 집으로 와서 옷을 입어 보았습니다.\nㄹ. 옷이 아주 잘 맞아서 기분이 좋았습니다.",
+                opts: ["ㄱ -> ㄴ -> ㄷ -> ㄹ", "ㄴ -> ㄱ -> ㄷ -> ㄹ", "ㄱ -> ㄷ -> ㄴ -> ㄹ", "ㄷ -> ㄱ -> ㄴ -> ㄹ"],
+                ans: 0,
+                trans: "Sắp xếp đúng: ㄱ (Đến TTTM ngắm) -> ㄴ (Ưng nên mua) -> ㄷ (Về mặc thử) -> ㄹ (Vừa vặn nên thích).",
+                note: "Trình tự mua sắm."
+            },
+            {
+                q: "비가 오는데 우산이 없어서 (_____).",
+                opts: ["옷이 다 젖었습니다", "옷이 다 젖으면 안 됩니다", "옷이 다 젖을 수 있습니다", "옷이 다 젖기로 했습니다"],
+                ans: 0,
+                trans: "Trời mưa mà không có ô nên quần áo đã bị ướt hết.",
+                note: "젖다: Bị ướt."
+            },
+            {
+                q: "아무리 (_____) 이해할 수 없습니다.",
+                opts: ["생각해도", "생각하면", "생각해서", "생각하니까"],
+                ans: 0,
+                trans: "Dù suy nghĩ thế nào tôi cũng không thể hiểu nổi.",
+                note: "아무리 -아/어도: Dù cho... đến mấy."
+            },
+            {
+                q: "다음 밑줄 친 부분 중 문법이 틀린 것을 고르십시오.",
+                opts: ["음악을 듵으면서 공부합니다", "음악을 들으면서 공부합니다", "음악을 듣고 공부합니다", "음악을 들으러 갑니다"],
+                ans: 0,
+                trans: "Câu sai: 듵으면서 (Viết sai chính tả bất quy tắc ㄷ).",
+                note: "듣다 + -(으)면서 -> 들으면서 mới đúng."
+            },
+            {
+                q: "새로 산 신발이 (_____).",
+                opts: ["너무 작아서 발이 아픕니다", "너무 작으면 발이 아픕니다", "너무 작고 발이 아픕니다", "너무 작으려 발이 아픕니다"],
+                ans: 0,
+                trans: "Đôi giày mới mua quá nhỏ nên chân bị đau.",
+                note: "-아/어서: Nguyên nhân."
+            },
+            {
+                q: "다음 글을 순서대로 맞게 나열한 것을 고르십시오.\n\nㄱ. 친구 생일 선물로 꽃을 샀습니다.\nㄴ. 친구가 꽃을 받고 기뻐했습니다.\nㄷ. 저도 친구가 좋아하는 모습을 보니 행복했습니다.\nㄹ. 저녁에 친구를 만나 선물을 주었습니다.",
+                opts: ["ㄱ -> ㄹ -> ㄴ -> ㄷ", "ㄱ -> ㄴ -> ㄹ -> ㄷ", "ㄹ -> ㄱ -> ㄴ -> ㄷ", "ㄴ -> ㄱ -> ㄹ -> ㄷ"],
+                ans: 0,
+                trans: "Sắp xếp đúng: ㄱ (Mua hoa) -> ㄹ (Tối gặp tặng) -> ㄴ (Bạn nhận vui mừng) -> ㄷ (Tôi cũng hạnh phúc).",
+                note: "Mạch truyện cảm xúc."
+            },
+            {
+                q: "한국어 능력시험(TOPIK)을 (_____).",
+                opts: ["보려고 신청서를 제출했습니다", "보면서 신청서를 제출했습니다", "보려면 신청서를 제출했습니다", "본 지 신청서를 제출했습니다"],
+                ans: 0,
+                trans: "Tôi đã nộp đơn đăng ký để dự thi TOPIK.",
+                note: "-(으)려고: Mục đích."
+            },
+            {
+                q: "수업 시간에 (_____).",
+                opts: ["늦지 않으려고 일찍 출발했습니다", "늦지 않으면 일찍 출발했습니다", "늦지 않아서 일찍 출발했습니다", "늦지 않고 일찍 출발했습니다"],
+                ans: 0,
+                trans: "Tôi đã xuất phát sớm để không bị muộn giờ học.",
+                note: "-지 않으려고: Để không..."
+            },
+            {
+                q: "약속 장소에 (_____).",
+                opts: ["도착하니까 친구가 이미 와 있었습니다", "도착하면 친구가 이미 와 있었습니다", "도착해서 친구가 이미 와 있었습니다", "도착하려고 친구가 이미 와 있었습니다"],
+                ans: 0,
+                trans: "Khi tôi đến điểm hẹn thì bạn đã tới sẵn rồi.",
+                note: "-(으)니까: Phát hiện thực tế."
+            },
+            {
+                q: "열심히 노력한 (_____).",
+                opts: ["덕분에 시험에 합격했습니다", "때문에 시험에 합격했습니다", "위해서 시험에 합격했습니다", "마다 시험에 합격했습니다"],
+                ans: 0,
+                trans: "Nhờ nỗ lực chăm chỉ mà tôi đã đỗ kỳ thi.",
+                note: "-(으)ㄴ 덕분에: Nhờ có..."
+            }
+        ];
+
+
+        /* ==========================================================================
+           4. LỜI NHẮN CÔ HANNIE & THÔNG ĐIỆP THIỀN
+           ========================================================================== */
+        const hannieQuotesMulti = {
+            // Mức 90 - 100%
+            perfect: [
+                "Alo Công an hả? Có người gian lận nè, sao giỏi quá vậy!",
+                "Ghê vậy sao, cô Hannie tự hào về elm.",
+                "대박! Topik 2 thẳng tiến",
+                "Đỉnh của chóp, trùm cuối là đây chứ đâu."
+            ],
+            // Mức 70 - 90%
+            good: [
+                "Cố lên, sắp tới rồi sắp tới rồi",
+                "Suýt nữa thì...phải lấy điểm tối đa chứ",
+                "Còn giấu bài đúng không em? Tung hết skill đi 다시!!",
+                "Bà giỏi rồi. Tui mừng cho bà ngen.",
+                "Bảo bối, cô không thích đứng nhì đâu",
+                "Rất gì và này nọ ha! Giữ vững phong độ nha",
+                "Phong độ này ổn áp lắm rồi đấy, nhưng cô biết em còn giấu bài đúng không?"
+            ],
+            // Mức 50 - 70%
+            average: [
+                "Làm bài kiểu này là tim cô đập thình thịch luôn á, ráng bứt phá lên nào!",
+                "Đừng mập mờ nữa. Mập rõ lên 100 điểm nàoo",
+                "Cũng cũng, bung hết công lực đi em",
+                "Giữa giữa như này là làm lốp nha. Lên chín(h) dùm cô."
+            ],
+            // Mức 30 - 50%
+            low: [
+                "Ủa alo? Lên cho một roi nha",
+                "Giỡn mặt hả? Giỡn vậy không vui đâu nha",
+                "Hihi chắc bấm nhầm nút nộp bài đúng không nhỉ??",
+                "Tín hiệu vũ trụ đang báo động đỏ rồi kìa, lo mà cắm đầu vào học lại đi em ơi!",
+                "Chọn đại đúng không? 다시 다시"
+            ],
+            // Dưới 30%
+            bad: [
+                "Ê cái gì rơi kìa! Kiến thức tiếng Hàn của em đó",
+                "Bảo bối, em thật thích trêu đùa cô?",
+                "Sai cỡ này phải sám hối thành tâm mới được",
+                "Thôi xong! Kiến thức đang bay sang hành tinh khác chơi tết luôn rồi",
+                "Alo, hai dặn cưng sao mà cưng làm vậy?"
+            ]
+        };
+
+        const zenMessages = [
+            "Tâm bình thế giới bình – Học hành thanh tịnh, tri thức tự thông.",
+            "Một phút tịnh tâm, vạn câu từ nhớ mãi.",
+            "Đường đi dù xa, bước từng bước chánh niệm rồi cũng sẽ tới đích.",
+            "Trí tuệ như hoa sen, càng rèn luyện càng tỏa hương thơm ngát.",
+            "Khó khăn chỉ là thử thách để rèn tâm kiên định."
+        ];
+
+
+        /* ==========================================================================
+           5. GAME STATE & LOGIC VẬN HÀNH
+           ========================================================================== */
+        let state = {
+            dharmaName: '',
+            currentHall: 'vocab',
+            currentRound: 1,
+            questions: [],
+            currentIndex: 0,
+            score: 0,
+            timer: null,
+            timeLeft: 15,
+            wrongQuestions: [],
+            isRetryMode: false
+        };
+
+        function validateNameInput() {
+            const val = document.getElementById('dharmaInput').value.trim();
+            const btnStart = document.getElementById('btnStartTrain');
+            const hallSelection = document.getElementById('hallSelection');
+
+            if (val.length > 0) {
+                btnStart.disabled = false;
+                hallSelection.classList.remove('opacity-50', 'pointer-events-none');
+            } else {
+                btnStart.disabled = true;
+                hallSelection.classList.add('opacity-50', 'pointer-events-none');
+            }
+        }
+
+        function confirmDharmaName() {
+            const val = document.getElementById('dharmaInput').value.trim();
+            if (!val) return;
+
+            playMoktakSound();
+            state.dharmaName = val;
+            document.getElementById('displayDharmaName').textContent = val;
+            document.getElementById('userBadge').classList.remove('hidden');
+
+            openRoundSelection();
+        }
+
+        function selectHall(hall) {
+            playMoktakSound();
+            state.currentHall = hall;
+        }
+
+        function goHome() {
+            playMoktakSound();
+            clearInterval(state.timer);
+            showScreen('screenWelcome');
+        }
+
+        function openRoundSelection() {
+            showScreen('screenRoundSelect');
+            const hallTitle = document.getElementById('hallTitle');
+            const hallSubtitle = document.getElementById('hallSubtitle');
+
+            if (state.currentHall === 'vocab') {
+                hallTitle.textContent = "SẢNH TỪ VỰNG (TOPIK I)";
+                hallSubtitle.textContent = "Hệ thống bẫy đáp án cùng từ loại chỉn chu";
+                document.getElementById('r1Desc').textContent = "30 câu từ vựng cơ bản - 15s/câu";
+                document.getElementById('r2Desc').textContent = "35 câu từ vựng ứng dụng - 15s/câu";
+                document.getElementById('r3Desc').textContent = "35 câu từ vựng nâng cao - 15s/câu";
+            } else {
+                hallTitle.textContent = "SẢNH NGỮ PHÁP (TOPIK I)";
+                hallSubtitle.textContent = "Đề tiếng Hàn chuẩn TOPIK - Đục lỗ cụm ngữ pháp & Sắp xếp câu";
+                document.getElementById('r1Desc').textContent = "40 câu đục lỗ sơ cấp 2 - 30s/câu";
+                document.getElementById('r2Desc').textContent = "20 câu hội thoại & liên kết - 1 phút/câu";
+                document.getElementById('r3Desc').textContent = "20 câu vận dụng cao & sắp xếp ㄱㄴㄷㄹ - 2 phút 30s/câu";
+            }
+        }
+
+        function showScreen(screenId) {
+            ['screenWelcome', 'screenRoundSelect', 'screenQuiz', 'screenResult'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.getElementById(screenId).classList.remove('hidden');
+        }
+
+        function shuffleArray(arr) {
+            const array = [...arr];
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // TẠO CÂU HỎI TỪ VỰNG VỚI ĐÁP ÁN BẪY CÙNG TỪ LOẠI
+        function generateVocabQuestionsWithSmartDistractors(roundNum) {
+            const list = vocabBank.filter(x => x.r === roundNum);
+            
+            return list.map(item => {
+                const correctAnswer = item.vi;
+                const type = item.type;
+
+                let sameTypeItems = vocabBank.filter(x => x.type === type && x.vi !== correctAnswer).map(x => x.vi);
+
+                if (sameTypeItems.length < 3 && extraDistractors[type]) {
+                    sameTypeItems = [...sameTypeItems, ...extraDistractors[type]];
+                }
+
+                const shuffledSameType = shuffleArray(sameTypeItems).slice(0, 3);
+                const allOptions = shuffleArray([correctAnswer, ...shuffledSameType]);
+                const correctIdx = allOptions.indexOf(correctAnswer);
+
+                return {
+                    prompt: `Chọn nghĩa tiếng Việt chính xác của từ loại [${getWordTypeName(type)}]:`,
+                    q: `"${item.kr}"`,
+                    opts: allOptions,
+                    ans: correctIdx,
+                    trans: `Từ "${item.kr}" mang nghĩa tiếng Việt là: "${item.vi}".`,
+                    note: `Từ loại: ${getWordTypeName(type)}`
+                };
+            });
+        }
+
+        function getWordTypeName(t) {
+            if (t === 'N') return 'Danh từ';
+            if (t === 'V') return 'Động từ';
+            if (t === 'A') return 'Tính từ';
+            return 'Trạng từ / Cụm từ';
+        }
+
+        // --- BẮT ĐẦU QUY TRÌNH QUIZ ---
+        function startQuiz(roundNum) {
+            playMoktakSound();
+            state.currentRound = roundNum;
+            state.currentIndex = 0;
+            state.score = 0;
+            state.wrongQuestions = [];
+            state.isRetryMode = false;
+
+            if (state.currentHall === 'vocab') {
+                state.questions = generateVocabQuestionsWithSmartDistractors(roundNum);
+            } else {
+                let rawQuestions = [];
+                if (roundNum === 1) rawQuestions = grammarRound1;
+                if (roundNum === 2) rawQuestions = grammarRound2;
+                if (roundNum === 3) rawQuestions = grammarRound3;
+
+                // Xáo trộn vị trí các lựa chọn đáp án của Sảnh Ngữ Pháp ngẫu nhiên
+                state.questions = rawQuestions.map(item => {
+                    const originalCorrectText = item.opts[item.ans];
+                    const shuffledOpts = shuffleArray([...item.opts]);
+                    const newAnsIdx = shuffledOpts.indexOf(originalCorrectText);
+
+                    return {
+                        ...item,
+                        opts: shuffledOpts,
+                        ans: newAnsIdx
+                    };
+                });
+            }
+
+            showScreen('screenQuiz');
+            renderQuestion();
+        }
+
+        // --- BẮT ĐẦU ÔN LẠI RIÊNG CÁC CÂU SAI (SÁM HỐI ĐẶC BIỆT) ---
+        function startRetryWrongOnly() {
+            if (!state.wrongQuestions || state.wrongQuestions.length === 0) return;
+            
+            playMoktakSound();
+            // Lấy lại danh sách các câu sai và xáo trộn lại vị trí đáp án để thử thách
+            state.questions = state.wrongQuestions.map(item => {
+                const orig = item.originalQuestion;
+                const originalCorrectText = orig.opts[orig.ans];
+                const shuffledOpts = shuffleArray([...orig.opts]);
+                const newAnsIdx = shuffledOpts.indexOf(originalCorrectText);
+
+                return {
+                    ...orig,
+                    opts: shuffledOpts,
+                    ans: newAnsIdx
+                };
+            });
+            state.currentIndex = 0;
+            state.score = 0;
+            state.wrongQuestions = [];
+            state.isRetryMode = true;
+
+            showScreen('screenQuiz');
+            renderQuestion();
+        }
+
+        function retryCurrentRound() {
+            startQuiz(state.currentRound);
+        }
+
+        // RENDER CÂU HỎI
+        function renderQuestion() {
+            clearInterval(state.timer);
+            
+            const qData = state.questions[state.currentIndex];
+            const badgeText = state.isRetryMode ? "🔥 Ôn Câu Sai" : `Vòng ${state.currentRound}`;
+            document.getElementById('quizBadge').textContent = badgeText;
+            document.getElementById('quizProgress').textContent = `Câu ${state.currentIndex + 1}/${state.questions.length}`;
+
+            // Ghi rõ prompt tiếng Việt gọn gàng
+            let promptText = "";
+            if (state.currentHall === 'vocab') {
+                promptText = qData.prompt || "Chọn nghĩa tiếng Việt đúng nhất:";
+            } else {
+                if (state.currentRound === 3) {
+                    promptText = "Chọn đáp án đúng nhất để hoàn thành hoặc sắp xếp câu:";
+                } else {
+                    promptText = "Chọn đáp án đúng nhất điền vào chỗ trống:";
+                }
+            }
+            document.getElementById('promptText').textContent = promptText;
+            document.getElementById('questionText').textContent = qData.q;
+
+            document.getElementById('cardExpl').classList.add('hidden');
+            document.getElementById('btnNext').disabled = true;
+
+            // Bật/Tắt nút CÂU TRƯỚC dựa vào chỉ số câu hỏi
+            const btnPrev = document.getElementById('btnPrev');
+            if (btnPrev) {
+                btnPrev.disabled = (state.currentIndex === 0);
+            }
+
+            const grid = document.getElementById('optionsGrid');
+            grid.innerHTML = '';
+
+            const prefixes = ['①', '②', '③', '④'];
+            qData.opts.forEach((optText, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `w-full p-2.5 sm:p-3 md:p-3.5 rounded-xl border border-zenBorder bg-zenWood/50 hover:bg-zenWood hover:border-zenGold transition text-left text-xs sm:text-sm md:text-base text-zenGoldLight font-serif flex items-start gap-2.5 option-btn shadow-sm`;
+                btn.innerHTML = `
+                    <span class="font-bold text-zenGold text-xs sm:text-sm md:text-base flex-shrink-0">${prefixes[idx]}</span>
+                    <span class="whitespace-pre-line leading-relaxed">${optText}</span>
+                `;
+                btn.onclick = () => handleSelectOption(idx);
+                grid.appendChild(btn);
+            });
+
+            // Set thời gian đếm ngược (Điều chỉnh chính xác theo yêu cầu mới)
+            if (state.currentHall === 'vocab') {
+                state.timeLeft = 15;
+            } else {
+                // Sảnh ngữ pháp: Vòng 1 = 30s, Vòng 2 = 60s (1 phút), Vòng 3 = 150s (2 phút 30s)
+                state.timeLeft = state.currentRound === 1 ? 30 : (state.currentRound === 2 ? 60 : 150);
+            }
+
+            updateTimerUI();
+            state.timer = setInterval(() => {
+                state.timeLeft--;
+                updateTimerUI();
+                if (state.timeLeft <= 0) {
+                    clearInterval(state.timer);
+                    handleTimeOut();
+                }
+            }, 1000);
+        }
+
+        function updateTimerUI() {
+            const mins = Math.floor(state.timeLeft / 60);
+            const secs = state.timeLeft % 60;
+            if (mins > 0) {
+                document.getElementById('timerText').textContent = `${mins}m ${secs < 10 ? '0' : ''}${secs}s`;
+            } else {
+                document.getElementById('timerText').textContent = `${secs}s`;
+            }
+        }
+
+        function handleSelectOption(selectedIdx) {
+            playMoktakSound();
+            clearInterval(state.timer);
+
+            const qData = state.questions[state.currentIndex];
+            const optionBtns = document.querySelectorAll('.option-btn');
+
+            optionBtns.forEach(btn => btn.disabled = true);
+
+            if (selectedIdx === qData.ans) {
+                state.score++;
+                optionBtns[selectedIdx].classList.add('bg-green-900/60', 'border-green-500', 'text-green-200');
+            } else {
+                optionBtns[selectedIdx].classList.add('bg-red-900/60', 'border-red-500', 'text-red-200');
+                optionBtns[qData.ans].classList.add('bg-green-900/60', 'border-green-500', 'text-green-200');
+                
+                state.wrongQuestions.push({
+                    q: qData.q,
+                    userAns: qData.opts[selectedIdx],
+                    correctAns: qData.opts[qData.ans],
+                    trans: qData.trans,
+                    note: qData.note,
+                    originalQuestion: qData
+                });
+            }
+
+            if (qData.trans) {
+                document.getElementById('explTranslation').textContent = `Dịch nghĩa: ${qData.trans}`;
+                document.getElementById('explNote').textContent = qData.note || "";
+                document.getElementById('cardExpl').classList.remove('hidden');
+            }
+
+            document.getElementById('btnNext').disabled = false;
+        }
+
+        function prevQuestion() {
+            if (state.currentIndex > 0) {
+                playMoktakSound();
+                state.currentIndex--;
+                renderQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            playMoktakSound();
+            state.currentIndex++;
+            if (state.currentIndex < state.questions.length) {
+                renderQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        // KẾT THÚC BÀI THI & HIỂN THỊ TỔNG KẾT
+        function finishQuiz() {
+            playTempleBellSound();
+            showScreen('screenResult');
+
+            const total = state.questions.length;
+            document.getElementById('finalScore').textContent = `${state.score} / ${total}`;
+
+            const ratio = state.score / total;
+            let randomHannie = "";
+
+            if (ratio >= 0.9) {
+                if (state.score === total) {
+                    const is100Special = [
+                        "100 điểm không có nhưng! Quá đỉnh em ơi!",
+                        "Em thành công rồi, cô Hannie mừng cho em"
+                    ];
+                    const fullList = [...hannieQuotesMulti.perfect, ...is100Special];
+                    randomHannie = fullList[Math.floor(Math.random() * fullList.length)];
+                } else {
+                    randomHannie = hannieQuotesMulti.perfect[Math.floor(Math.random() * hannieQuotesMulti.perfect.length)];
+                }
+            } else if (ratio >= 0.7) {
+                randomHannie = hannieQuotesMulti.good[Math.floor(Math.random() * hannieQuotesMulti.good.length)];
+            } else if (ratio >= 0.5) {
+                if (ratio <= 0.6) {
+                    const is50to60Special = ["50/50 hả bà? Vậy là không được đâu nha"];
+                    const fullList = [...hannieQuotesMulti.average, ...is50to60Special];
+                    randomHannie = fullList[Math.floor(Math.random() * fullList.length)];
+                } else {
+                    randomHannie = hannieQuotesMulti.average[Math.floor(Math.random() * hannieQuotesMulti.average.length)];
+                }
+            } else if (ratio >= 0.3) {
+                randomHannie = hannieQuotesMulti.low[Math.floor(Math.random() * hannieQuotesMulti.low.length)];
+            } else {
+                randomHannie = hannieQuotesMulti.bad[Math.floor(Math.random() * hannieQuotesMulti.bad.length)];
+            }
+
+            document.getElementById('hannieMsg').textContent = randomHannie;
+
+            const randomZen = zenMessages[Math.floor(Math.random() * zenMessages.length)];
+            document.getElementById('zenMsg').textContent = randomZen;
+
+            const samHoiSection = document.getElementById('samHoiSection');
+            const samHoiList = document.getElementById('samHoiList');
+            samHoiList.innerHTML = '';
+
+            if (state.wrongQuestions.length === 0) {
+                samHoiSection.classList.add('hidden');
+            } else {
+                samHoiSection.classList.remove('hidden');
+                state.wrongQuestions.forEach((item, idx) => {
+                    const card = document.createElement('div');
+                    card.className = "p-3.5 rounded-xl border border-zenBorder bg-zenWood/40 text-left text-xs md:text-sm space-y-1";
+                    card.innerHTML = `
+                        <div class="font-bold text-zenGold whitespace-pre-line">Câu ${idx + 1}: ${item.q}</div>
+                        <div class="text-red-400">❌ Em chọn: <span class="line-through">${item.userAns}</span></div>
+                        <div class="text-green-400 font-semibold">✅ Đáp án đúng: ${item.correctAns}</div>
+                        <div class="text-zenGoldLight italic border-t border-zenBorder/30 pt-1 mt-1">✨ Khai Thị: ${item.trans}</div>
+                    `;
+                    samHoiList.appendChild(card);
+                });
+            }
+        }
+    </script>
+</body>
+</html>
